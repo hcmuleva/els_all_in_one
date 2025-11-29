@@ -1,0 +1,152 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quiz_results",
+  "info": {
+    "singularName": "quiz-result",
+    "pluralName": "quiz-results",
+    "displayName": "Quiz Result",
+    "description": "Student quiz results and performance tracking"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "quiz": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::quiz.quiz",
+      "inversedBy": "results"
+    },
+    "score": {
+      "type": "integer",
+      "required": true,
+      "description": "Total points earned"
+    },
+    "totalQuestions": {
+      "type": "integer",
+      "required": true
+    },
+    "correctAnswers": {
+      "type": "integer",
+      "required": true
+    },
+    "percentage": {
+      "type": "decimal",
+      "required": true,
+      "min": 0,
+      "max": 100
+    },
+    "timeSpent": {
+      "type": "integer",
+      "required": true,
+      "description": "Total time spent in seconds"
+    },
+    "answers": {
+      "type": "json",
+      "required": true,
+      "description": "Detailed answer tracking for each question"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "in-progress",
+        "completed",
+        "abandoned",
+        "timed-out"
+      ],
+      "default": "in-progress"
+    },
+    "attemptNumber": {
+      "type": "integer",
+      "required": true,
+      "default": 1
+    },
+    "startedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "completedAt": {
+      "type": "datetime",
+      "required": false
+    },
+    "submittedAt": {
+      "type": "datetime",
+      "required": false
+    },
+    "timePerQuestion": {
+      "type": "json",
+      "description": "Time spent on each individual question"
+    },
+    "questionPerformance": {
+      "type": "json",
+      "description": "Performance breakdown by question type"
+    },
+    "difficultyBreakdown": {
+      "type": "json",
+      "description": "Performance breakdown by difficulty level"
+    },
+    "areasForImprovement": {
+      "type": "json",
+      "description": "AI-generated recommendations for improvement"
+    },
+    "strengths": {
+      "type": "json",
+      "description": "Identified strong areas"
+    },
+    "certificateIssued": {
+      "type": "boolean",
+      "default": false
+    },
+    "certificateUrl": {
+      "type": "string",
+      "description": "URL to generated certificate (if applicable)"
+    },
+    "feedback": {
+      "type": "richtext",
+      "description": "Personalized feedback from instructor or system"
+    },
+    "autoGrade": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the quiz was auto-graded"
+    },
+    "manualReview": {
+      "type": "boolean",
+      "default": false,
+      "description": "Requires manual review by instructor"
+    },
+    "reviewNotes": {
+      "type": "text",
+      "description": "Notes from manual review process"
+    },
+    "plagiarismScore": {
+      "type": "decimal",
+      "min": 0,
+      "max": 100,
+      "description": "Plagiarism detection score"
+    },
+    "ipAddress": {
+      "type": "string",
+      "description": "IP address for security tracking"
+    },
+    "userAgent": {
+      "type": "text",
+      "description": "User agent for device tracking"
+    },
+    "deviceInfo": {
+      "type": "json",
+      "description": "Device and browser information"
+    },
+    "geoLocation": {
+      "type": "json",
+      "description": "Geographic location if available"
+    }
+  }
+}

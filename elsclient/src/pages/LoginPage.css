@@ -1,0 +1,114 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    padding: var(--space-4);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-page::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    100% {
+        transform: translateY(100px) translateX(100px);
+    }
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    z-index: 1;
+    animation: slideUp 0.5s ease-out;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    color: white;
+}
+
+.login-header h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-2);
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-header p {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+}
+
+.login-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-2xl);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.login-error {
+    padding: var(--space-3) var(--space-4);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--color-error-500);
+    border-radius: var(--radius-lg);
+    color: var(--color-error-500);
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
+
+.login-footer p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.login-link {
+    color: var(--color-primary-500);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.login-link:hover {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .login-header h1 {
+        font-size: var(--font-size-3xl);
+    }
+}

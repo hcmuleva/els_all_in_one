@@ -1,0 +1,113 @@
+/* Question Card */
+.question-card {
+    background: white;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.question-text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-6);
+    line-height: 1.6;
+}
+
+/* Options Grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.option-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: left;
+}
+
+.option-button:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+}
+
+.option-button.selected {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.option-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: white;
+    border-radius: 50%;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.option-text {
+    flex: 1;
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+}
+
+/* Explanation Box */
+.explanation {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid #f59e0b;
+    margin-top: var(--space-4);
+    animation: slideDown 0.3s ease-out;
+}
+
+.explanation-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.explanation-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .question-text {
+        font-size: var(--font-size-lg);
+    }
+
+    .option-button {
+        padding: var(--space-3);
+    }
+}
+
+/* Animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

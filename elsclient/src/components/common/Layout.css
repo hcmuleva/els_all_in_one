@@ -1,0 +1,21 @@
+.app-layout {
+    min-height: 100vh;
+    background: var(--color-bg-primary);
+}
+
+.main-content {
+    /* Add padding for fixed TopNav on desktop */
+    padding-top: 70px;
+    /* Add padding for fixed BottomNav on mobile is handled in Dashboard.css or specific pages, 
+       but we can add a default safe area here if needed. 
+       However, Dashboard.css already has padding-bottom: var(--space-20).
+       Let's add a default padding-bottom for mobile here to be safe for other pages. */
+    padding-bottom: 80px;
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        padding-bottom: 0;
+        /* No bottom nav on desktop */
+    }
+}

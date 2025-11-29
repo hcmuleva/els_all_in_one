@@ -1,0 +1,81 @@
+# ---------------------
+# Node.js common ignores
+# ---------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# ---------------------
+# Build / dist folders
+# ---------------------
+dist/
+build/
+coverage/
+tmp/
+temp/
+.cache/
+.next/
+out/
+.esbuild/
+webpack-stats.json
+
+# ---------------------
+# Env files (DO NOT COMMIT)
+# ---------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------
+# Logs
+# ---------------------
+logs/
+*.log
+*.log.*
+debug.log
+error.log
+
+# ---------------------
+# OS generated files
+# ---------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------
+# IDE / Editors
+# ---------------------
+.vscode/
+.idea/
+*.swp
+
+# ---------------------
+# Python virtual environments
+# (if you use any utils/scripts)
+# ---------------------
+venv/
+.venv/
+
+# ---------------------
+# Subprojects: elsclient + elsserver
+# Node modules inside them also ignored because of global rule above
+# ---------------------
+elsclient/node_modules/
+elsclient/dist/
+elsclient/build/
+
+elsserver/node_modules/
+elsserver/dist/
+elsserver/build/
+
+# If using TypeScript
+*.tsbuildinfo
+
+# Lock files if optional
+# Remove these lines if you want lock files in repo
+elsclient/package-lock.json
+elsserver/package-lock.json

@@ -1,0 +1,289 @@
+.dashboard {
+    min-height: 100vh;
+    background: var(--color-bg-primary);
+    padding-bottom: var(--space-20);
+    /* Space for bottom nav */
+}
+
+.dashboard-container {
+    padding-top: var(--space-4);
+}
+
+/* Banner Section */
+.dashboard-banner-section {
+    margin-bottom: var(--space-8);
+    position: relative;
+}
+
+.banner-wrapper {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    min-height: 200px;
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-8);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.user-profile-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.user-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
+    background: var(--color-primary-100);
+}
+
+.user-greeting h1 {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary-600);
+    margin-bottom: var(--space-1);
+}
+
+.user-greeting p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+/* Statistics Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-4);
+    gap: var(--space-2);
+}
+
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+}
+
+.stat-card-primary .stat-icon-wrapper {
+    background: var(--color-primary-100);
+    color: var(--color-primary-600);
+}
+
+.stat-card-accent .stat-icon-wrapper {
+    background: var(--color-accent-100);
+    color: var(--color-accent-600);
+}
+
+.stat-card-success .stat-icon-wrapper {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--color-success-600);
+}
+
+.stat-card-info .stat-icon-wrapper {
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--color-info-500);
+}
+
+.stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Main Content Layout */
+.dashboard-main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-8);
+}
+
+.main-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* Course Grid */
+.course-grid-featured {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-6);
+}
+
+.featured-course-card {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-5);
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.course-card-content {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.featured-course-card h4 {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.course-level {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: var(--font-weight-bold);
+    display: block;
+    margin-bottom: var(--space-3);
+}
+
+.course-progress-bar {
+    height: 6px;
+    background: var(--color-gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--color-primary-500);
+    border-radius: var(--radius-full);
+}
+
+.view-all-courses {
+    text-align: center;
+    margin-top: var(--space-2);
+}
+
+.btn-text {
+    color: var(--color-primary-600);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+}
+
+/* Sidebar Components */
+.dashboard-grid-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.recent-lessons-card .lesson-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+    transition: all var(--transition-fast);
+}
+
+.recent-lessons-card .lesson-item:hover {
+    background: var(--color-primary-50);
+}
+
+.lesson-icon {
+    font-size: 1.2rem;
+}
+
+.org-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-secondary);
+}
+
+.org-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-secondary);
+    color: white;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dashboard-main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-column {
+        display: none;
+        /* Hide sidebar on smaller screens for now, or move to bottom */
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-content {
+        background: rgba(255, 255, 255, 0.9);
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .user-profile-header {
+        flex-direction: column;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

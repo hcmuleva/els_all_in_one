@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pricings",
+  "info": {
+    "singularName": "pricing",
+    "pluralName": "pricings",
+    "displayName": "pricing",
+    "description": "Pricing plans for kits with discount support"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "duration": {
+      "type": "integer"
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "default": "INR"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "option": {
+      "type": "enumeration",
+      "default": "ONETIME",
+      "enum": [
+        "ONETIME",
+        "DAILY",
+        "WEEKLY",
+        "MONTHLY",
+        "YEARLY",
+        "ORG",
+        "SPECIALORG",
+        "SOCIETY"
+      ]
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "discount_percent": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    },
+    "discount_valid_until": {
+      "type": "datetime"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "features": {
+      "type": "json",
+      "default": []
+    },
+    "cashfree_plan_id": {
+      "type": "string"
+    },
+    "kitsubscriptions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::kitsubscription.kitsubscription",
+      "mappedBy": "pricing"
+    },
+    "org": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::org.org",
+      "inversedBy": "pricings"
+    },
+    "kit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::kit.kit",
+      "inversedBy": "pricing_plans"
+    },
+    "offers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::offer.offer",
+      "mappedBy": "pricings"
+    }
+  }
+}

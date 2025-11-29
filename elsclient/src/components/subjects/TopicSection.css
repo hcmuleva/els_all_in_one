@@ -1,0 +1,186 @@
+/* Topic Section Container */
+.topic-section {
+    margin-bottom: var(--space-8);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Topic Section Header */
+.topic-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.topic-emoji {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.topic-title {
+    flex: 1;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: white;
+    margin: 0;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.topic-count {
+    background: rgba(255, 255, 255, 0.3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+/* Video Carousel Container */
+.video-carousel-container {
+    position: relative;
+    padding: var(--space-2) 0;
+}
+
+/* Video Carousel - Horizontal Scroll */
+.video-carousel {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding: var(--space-4) var(--space-4) var(--space-6);
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling on iOS */
+
+    /* Hide scrollbar but keep functionality */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+}
+
+.video-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.video-carousel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-full);
+    margin: 0 var(--space-4);
+}
+
+.video-carousel::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+}
+
+.video-carousel::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
+
+/* Carousel Video Item */
+.carousel-video-item {
+    flex: 0 0 280px;
+    /* Fixed width for consistency */
+    min-width: 280px;
+    scroll-snap-align: start;
+}
+
+/* Snap scrolling for better UX */
+.video-carousel {
+    scroll-snap-type: x proximity;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .carousel-video-item {
+        flex: 0 0 260px;
+        min-width: 260px;
+    }
+
+    .topic-section-header {
+        padding: var(--space-3);
+    }
+
+    .topic-emoji {
+        font-size: 1.5rem;
+    }
+
+    .topic-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .topic-count {
+        font-size: var(--font-size-xs);
+        padding: var(--space-1) var(--space-2);
+    }
+}
+
+/* View Toggle Tabs */
+.view-toggle-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    background: rgba(0, 0, 0, 0.05);
+    padding: var(--space-2);
+    border-radius: var(--radius-lg);
+}
+
+.toggle-tab {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    color: var(--color-text-secondary);
+}
+
+.toggle-tab:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.toggle-tab.active {
+    background: white;
+    color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.toggle-tab:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Quiz Container */
+.quiz-container {
+    min-height: 300px;
+}
+
+.quiz-loading {
+    text-align: center;
+    padding: var(--space-8);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

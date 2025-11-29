@@ -1,0 +1,90 @@
+.subject-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    min-width: 25%;
+    /* 25% width as requested */
+    height: 72px;
+    /* 80px - 10% = 72px */
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Subtle border for definition */
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.subject-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+/* Selected state */
+.subject-card.selected {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), var(--shadow-lg);
+    transform: scale(1.05);
+}
+
+.subject-card.selected:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+.subject-icon-wrapper {
+    width: 48px;
+    /* Reduced size */
+    height: 48px;
+    background: #ffedd5;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+    transform: translateZ(10px);
+}
+
+.subject-icon {
+    font-size: 1.5rem;
+    /* Reduced font size */
+    color: #ea580c;
+    filter: none;
+}
+
+.subject-title {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    /* Fixed, smaller size */
+    font-weight: var(--font-weight-bold);
+    text-transform: capitalize;
+    z-index: 1;
+    line-height: 1.2;
+    transform: translateZ(5px);
+    text-shadow: none;
+}
+
+/* Optional: Add a subtle pattern or gradient overlay if desired,
+   but keeping it clean as per "Blue rectangle" request for now. */

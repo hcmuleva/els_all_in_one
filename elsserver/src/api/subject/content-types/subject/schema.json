@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subjects",
+  "info": {
+    "singularName": "subject",
+    "pluralName": "subjects",
+    "displayName": "subject"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "coverpage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "grade": {
+      "type": "enumeration",
+      "enum": [
+        "PLAYSCHOOL",
+        "LKG",
+        "UKG",
+        "FIRST",
+        "SECOND",
+        "THIRD",
+        "FOURTH",
+        "FIFTH",
+        "SIXTH",
+        "SEVENTH",
+        "EIGHTH",
+        "NINTH",
+        "TENTH",
+        "ELEVENTH",
+        "TWELFTH",
+        "DIPLOMA",
+        "GRADUATION",
+        "POSTGRADUATION",
+        "PHD"
+      ]
+    },
+    "topics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::topic.topic",
+      "mappedBy": "subject"
+    },
+    "contents": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::content.content",
+      "mappedBy": "subjects"
+    },
+    "quizzes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz.quiz",
+      "mappedBy": "subject"
+    }
+  }
+}
