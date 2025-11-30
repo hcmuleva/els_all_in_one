@@ -154,6 +154,18 @@
     "version": {
       "type": "integer",
       "default": 1
+    },
+    "tag_exams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag-exam.tag-exam",
+      "inversedBy": "questions"
+    },
+    "tag_years": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag-year.tag-year",
+      "inversedBy": "questions"
     }
   }
 }

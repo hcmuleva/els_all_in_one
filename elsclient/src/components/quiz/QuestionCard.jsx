@@ -11,18 +11,23 @@ const QuestionCard = ({ question, selectedAnswer, onAnswer }) => {
             </div>
 
             <div className="options-grid">
-                {question.options && question.options.map((option, index) => (
-                    <button
-                        key={index}
-                        className={`option-button ${selectedAnswer === index ? 'selected' : ''}`}
-                        onClick={() => onAnswer(index)}
-                    >
-                        <span className="option-letter">
-                            {String.fromCharCode(65 + index)}
-                        </span>
-                        <span className="option-text">{option}</span>
-                    </button>
-                ))}
+                {question.options && question.options.map((option, index) => {
+                    // Handle both string options and object options {text: "...", isCorrect: true/false}
+                    const optionText = typeof option === 'string' ? option : option.text || option;
+
+                    return (
+                        <button
+                            key={index}
+                            className={`option-button ${selectedAnswer === index ? 'selected' : ''}`}
+                            onClick={() => onAnswer(index)}
+                        >
+                            <span className="option-letter">
+                                {String.fromCharCode(65 + index)}
+                            </span>
+                            <span className="option-text">{optionText}</span>
+                        </button>
+                    );
+                })}
             </div>
 
             {selectedAnswer !== undefined && question.explanation && (

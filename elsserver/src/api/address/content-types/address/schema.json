@@ -41,6 +41,18 @@
       "relation": "oneToOne",
       "target": "api::org.org",
       "inversedBy": "address"
+    },
+    "user_address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "home_address"
+    },
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
+      "type": "decimal"
     }
   }
 }

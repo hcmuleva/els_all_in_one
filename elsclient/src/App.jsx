@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import ProfilePage from './pages/ProfilePage';
 import SubjectsPage from './pages/SubjectsPage';
+import NearMe from './pages/NearMe';
 import Layout from './components/common/Layout';
 import './App.css';
 
@@ -93,6 +94,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/near-me"
+            element={
+              <ProtectedRoute>
+                <NearMe />
               </ProtectedRoute>
             }
           />

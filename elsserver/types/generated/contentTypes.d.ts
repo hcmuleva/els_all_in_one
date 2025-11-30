@@ -449,12 +449,14 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     landmark: Schema.Attribute.String;
+    latitude: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::address.address'
     > &
       Schema.Attribute.Private;
+    longitude: Schema.Attribute.Decimal;
     org: Schema.Attribute.Relation<'oneToOne', 'api::org.org'>;
     postal_code: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -462,6 +464,10 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_address: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1143,6 +1149,14 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    tag_exams: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tag-exam.tag-exam'
+    >;
+    tag_years: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tag-year.tag-year'
+    >;
     tags: Schema.Attribute.JSON;
     timeLimit: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
@@ -1414,6 +1428,70 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTagExamTagExam extends Struct.CollectionTypeSchema {
+  collectionName: 'tag_exams';
+  info: {
+    displayName: 'tag_exam';
+    pluralName: 'tag-exams';
+    singularName: 'tag-exam';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tag-exam.tag-exam'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::question.question'
+    >;
+    tag_exam: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTagYearTagYear extends Struct.CollectionTypeSchema {
+  collectionName: 'tag_years';
+  info: {
+    displayName: 'tag_year';
+    pluralName: 'tag-years';
+    singularName: 'tag-year';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tag-year.tag-year'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::question.question'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    year: Schema.Attribute.Integer;
   };
 }
 
@@ -2230,6 +2308,7 @@ export interface PluginUsersPermissionsUser
     first_name: Schema.Attribute.String;
     gender: Schema.Attribute.Enumeration<['MALE', 'FEMALE']>;
     getstarted_completed: Schema.Attribute.Boolean;
+    home_address: Schema.Attribute.Relation<'oneToOne', 'api::address.address'>;
     kitprogresses: Schema.Attribute.Relation<
       'oneToMany',
       'api::kitprogress.kitprogress'
@@ -2335,6 +2414,8 @@ declare module '@strapi/strapi' {
       'api::quiz.quiz': ApiQuizQuiz;
       'api::resource.resource': ApiResourceResource;
       'api::subject.subject': ApiSubjectSubject;
+      'api::tag-exam.tag-exam': ApiTagExamTagExam;
+      'api::tag-year.tag-year': ApiTagYearTagYear;
       'api::team.team': ApiTeamTeam;
       'api::topic.topic': ApiTopicTopic;
       'api::user-experience.user-experience': ApiUserExperienceUserExperience;

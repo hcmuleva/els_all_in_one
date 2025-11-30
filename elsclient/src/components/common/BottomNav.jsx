@@ -9,6 +9,7 @@ const BottomNav = () => {
     const navItems = [
         { id: 'home', label: 'Home', icon: '🏠', path: '/' },
         { id: 'subjects', label: 'Subjects', icon: '📚', path: '/subjects' },
+        { id: 'nearme', label: 'NearMe', icon: '📍', path: '/near-me' },
         { id: 'leaderboard', label: 'Leaders', icon: '🏆', path: '/leaderboard' },
         { id: 'profile', label: 'Me', icon: '👤', path: '/profile' },
     ];
