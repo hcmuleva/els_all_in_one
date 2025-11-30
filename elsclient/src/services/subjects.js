@@ -6,7 +6,7 @@ export const subjectAPI = {
             params: {
                 populate: {
                     topics: {
-                        populate: ['contents']
+                        populate: ['contents', 'subject']
                     }
                 }
             }

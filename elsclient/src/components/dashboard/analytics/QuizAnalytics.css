@@ -1,0 +1,557 @@
+/* Quiz Analytics Dashboard Styles */
+
+.quiz-analytics-dashboard {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.analytics-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.analytics-header h2 {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.analytics-header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+/* Stats Grid */
+.stats-grid-analytics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Stat Cards */
+.stat-card-analytics {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    color: white;
+}
+
+.stat-card-analytics:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card-analytics.stat-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card-analytics.stat-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.stat-card-analytics.stat-info {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+}
+
+.stat-card-analytics.stat-accent {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+.stat-analytics-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.stat-analytics-content {
+    flex: 1;
+}
+
+.stat-analytics-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.stat-analytics-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.stat-analytics-subtext {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+}
+
+/* Analytics Main Content */
+.analytics-main-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 968px) {
+    .analytics-main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Metric Selector */
+.metric-selector {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+}
+
+.metric-selector-title {
+    font-size: 1.2rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.metric-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.metric-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.metric-checkbox-label:hover {
+    background: #f7fafc;
+}
+
+.metric-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.metric-checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.metric-checkbox:checked+.metric-checkbox-custom {
+    background: #667eea;
+    border-color: #667eea;
+}
+
+.metric-checkbox:checked+.metric-checkbox-custom::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.metric-icon {
+    font-size: 1.5rem;
+}
+
+.metric-label {
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+/* Chart Section */
+.analytics-chart-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chart-title {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+.trend-chart-container {
+    width: 100%;
+}
+
+/* Empty States */
+.chart-empty,
+.analytics-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.chart-empty p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.empty-state-analytics {
+    background: white;
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.empty-icon-large {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state-analytics h2 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state-analytics p {
+    color: #718096;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary-analytics {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn-primary-analytics:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading State */
+.analytics-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.analytics-loading p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .quiz-analytics-dashboard {
+        padding: 1rem;
+    }
+
+    .stats-grid-analytics {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .stat-analytics-value {
+        font-size: 1.5rem;
+    }
+
+    .chart-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Progression Chart Section */
+.analytics-progression-section {
+    margin-top: 2rem;
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chart-subtitle {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-legend-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f7fafc;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.chart-legend-note p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.chart-legend-note strong {
+    color: #2d3748;
+}
+
+/* Progression Metric Selector */
+.progression-metric-selector {
+    margin-bottom: 1.5rem;
+}
+
+.progression-metric-title {
+    font-size: 1rem;
+    color: #4a5568;
+    margin-bottom: 0.75rem;
+}
+
+.progression-metric-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.metric-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.metric-chip:hover {
+    border-color: #cbd5e0;
+    background: #f7fafc;
+}
+
+.metric-chip.active {
+    border-color: #667eea;
+    background: #667eea;
+    color: white;
+}
+
+.metric-chip.active .chip-icon {
+    transform: scale(1.1);
+}
+
+.chip-icon {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.chip-label {
+    font-weight: 500;
+}
+
+/* Custom Tooltip Styles */
+.custom-tooltip {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+}
+
+.tooltip-header {
+    font-size: 0.95rem;
+    color: #667eea;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tooltip-context {
+    margin-bottom: 8px;
+}
+
+.tooltip-info {
+    font-size: 0.85rem;
+    color: #4a5568;
+    margin: 4px 0;
+}
+
+.tooltip-info strong {
+    color: #2d3748;
+}
+
+.tooltip-divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 8px 0;
+}
+
+.tooltip-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tooltip-metric {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.tooltip-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.tooltip-label {
+    color: #4a5568;
+    flex: 1;
+}
+
+.tooltip-value {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Chart Info Note */
+.chart-info-note {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #f0f4ff;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.chart-info-note p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+/* Subject Filter */
+.subject-filter {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.subject-filter-title {
+    font-size: 1rem;
+    color: #4a5568;
+    margin-bottom: 0.75rem;
+}
+
+.subject-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.subject-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--subject-color, #cbd5e0);
+    border-radius: 24px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.subject-chip:hover {
+    background: #f7fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subject-chip.active {
+    background: var(--subject-color, #667eea);
+    color: white;
+    border-color: var(--subject-color, #667eea);
+}
+
+.subject-chip-label {
+    font-weight: 600;
+}
+
+.subject-chip-check {
+    font-size: 1rem;
+}
+
+.clear-filters-btn {
+    padding: 0.5rem 1rem;
+    background: #f7fafc;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    color: #4a5568;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.clear-filters-btn:hover {
+    background: #e2e8f0;
+    color: #2d3748;
+}

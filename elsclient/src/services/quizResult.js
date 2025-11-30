@@ -7,12 +7,24 @@ export const quizResultAPI = {
         return response.data;
     },
 
-    // Get results for a user (optional for now)
+    // Get results for current user
+    getMyResults: async () => {
+        const response = await api.get(`/quiz-results`, {
+            params: {
+                'populate': ['quiz', 'topic', 'subject'],
+                'sort': 'createdAt:desc'
+            }
+        });
+        return response.data;
+    },
+
+    // Get results for a specific user (for admin/analytics)
     getUserResults: async (userId) => {
         const response = await api.get(`/quiz-results`, {
             params: {
-                'filters[user][id][$eq]': userId,
-                'populate': ['quiz', 'topic']
+                'filters[student][id][$eq]': userId,
+                'populate': ['quiz', 'topic', 'subject'],
+                'sort': 'createdAt:desc'
             }
         });
         return response.data;

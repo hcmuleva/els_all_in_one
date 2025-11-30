@@ -67,6 +67,10 @@ const QuizView = ({ quiz, topic, subjectName }) => {
         const completedAt = new Date();
         const timeTaken = Math.round((completedAt - quizStartTime) / 1000); // Total time in seconds
 
+        // Get current user from localStorage
+        const userStr = localStorage.getItem('user');
+        const currentUser = userStr ? JSON.parse(userStr) : null;
+
         try {
             await quizResultAPI.create({
                 score,
@@ -79,7 +83,8 @@ const QuizView = ({ quiz, topic, subjectName }) => {
                 completedAt: completedAt.toISOString(),
                 quiz: quiz.documentId,
                 topic: topic?.documentId,
-                subject: topic?.subject?.documentId
+                subject: topic?.subject?.documentId,
+                student: currentUser?.id // Add student ID
             });
             console.log('Quiz result saved successfully!');
         } catch (error) {
