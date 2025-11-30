@@ -1,25 +1,48 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuestionCard from './QuestionCard';
 import { quizResultAPI } from '../../services/quizResult';
 import './QuizView.css';
 
-const QuizView = ({ quiz, topic, subjectName }) => {
+const QuizView = ({ quiz, topic, subjectName, onClose }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
     const [savingResult, setSavingResult] = useState(false);
 
-    // Timing tracking
+    // Full-screen and status tracking
+    const [isFullScreen, setIsFullScreen] = useState(true); // Start in full-screen
+    const [questionStatus, setQuestionStatus] = useState({});
+
+    // Timer tracking
     const [quizStartTime, setQuizStartTime] = useState(null);
     const [questionStartTime, setQuestionStartTime] = useState(null);
     const [questionTimings, setQuestionTimings] = useState({});
+    const [elapsedTime, setElapsedTime] = useState(0);
 
-    // Initialize timing when quiz loads
+    // Initialize timing and question statuses when quiz loads
     useEffect(() => {
         const now = new Date();
         setQuizStartTime(now);
         setQuestionStartTime(now);
+
+        // Initialize all questions as not-attempted
+        const initialStatus = {};
+        quiz.questions.forEach(q => {
+            initialStatus[q.id] = 'not-attempted';
+        });
+        setQuestionStatus(initialStatus);
     }, []);
+
+    // Timer effect - runs every second when quiz is active
+    useEffect(() => {
+        if (!showResults && quizStartTime) {
+            const interval = setInterval(() => {
+                setElapsedTime(Math.floor((new Date() - quizStartTime) / 1000));
+            }, 1000);
+
+            return () => clearInterval(interval);
+        }
+    }, [showResults, quizStartTime]);
 
     if (!quiz || !quiz.questions || quiz.questions.length === 0) {
         return (
@@ -33,10 +56,18 @@ const QuizView = ({ quiz, topic, subjectName }) => {
     const currentQuestion = quiz.questions[currentQuestionIndex];
     const totalQuestions = quiz.questions.length;
 
+    // Format time as MM:SS
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    };
+
+    // Handle answer selection
     const handleAnswer = (questionId, answerIndex) => {
         // Record time taken for this question if not already answered
         if (answers[questionId] === undefined && questionStartTime) {
-            const timeSpent = Math.round((new Date() - questionStartTime) / 1000); // in seconds
+            const timeSpent = Math.round((new Date() - questionStartTime) / 1000);
             setQuestionTimings(prev => ({
                 ...prev,
                 [questionId]: timeSpent
@@ -47,6 +78,34 @@ const QuizView = ({ quiz, topic, subjectName }) => {
             ...answers,
             [questionId]: answerIndex
         });
+
+        // Update status to attempted (unless already flagged)
+        if (questionStatus[questionId] !== 'flagged') {
+            setQuestionStatus({
+                ...questionStatus,
+                [questionId]: 'attempted'
+            });
+        }
+    };
+
+    // Toggle flag status
+    const toggleFlag = (questionId) => {
+        const current = questionStatus[questionId];
+        const newStatus = current === 'flagged' ?
+            (answers[questionId] !== undefined ? 'attempted' : 'not-attempted') :
+            'flagged';
+
+        setQuestionStatus({
+            ...questionStatus,
+            [questionId]: newStatus
+        });
+    };
+
+    // Direct navigation to question
+    const goToQuestion = (index) => {
+        setCurrentQuestionIndex(index);
+        setQuestionStartTime(new Date());
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const calculateScore = () => {
@@ -65,9 +124,8 @@ const QuizView = ({ quiz, topic, subjectName }) => {
         const score = calculateScore();
         const percentage = Math.round((score / totalQuestions) * 100);
         const completedAt = new Date();
-        const timeTaken = Math.round((completedAt - quizStartTime) / 1000); // Total time in seconds
+        const timeTaken = Math.round((completedAt - quizStartTime) / 1000);
 
-        // Get current user from localStorage
         const userStr = localStorage.getItem('user');
         const currentUser = userStr ? JSON.parse(userStr) : null;
 
@@ -84,7 +142,7 @@ const QuizView = ({ quiz, topic, subjectName }) => {
                 quiz: quiz.documentId,
                 topic: topic?.documentId,
                 subject: topic?.subject?.documentId,
-                student: currentUser?.id // Add student ID
+                student: currentUser?.id
             });
             console.log('Quiz result saved successfully!');
         } catch (error) {
@@ -97,7 +155,6 @@ const QuizView = ({ quiz, topic, subjectName }) => {
 
     const handleNext = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
-            // Move to next question and reset timer
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setQuestionStartTime(new Date());
         } else {
@@ -120,14 +177,28 @@ const QuizView = ({ quiz, topic, subjectName }) => {
         setQuizStartTime(now);
         setQuestionStartTime(now);
         setQuestionTimings({});
+        setElapsedTime(0);
+
+        // Reset all statuses
+        const initialStatus = {};
+        quiz.questions.forEach(q => {
+            initialStatus[q.id] = 'not-attempted';
+        });
+        setQuestionStatus(initialStatus);
     };
 
+    // Get status class for question number
+    const getStatusClass = (questionId) => {
+        const status = questionStatus[questionId] || 'not-attempted';
+        return status;
+    };
+
+    // Results view
     if (showResults) {
         const score = calculateScore();
         const percentage = ((score / totalQuestions) * 100).toFixed(0);
-        const totalTime = Math.round((new Date() - quizStartTime) / 1000);
-        const minutes = Math.floor(totalTime / 60);
-        const seconds = totalTime % 60;
+        const minutes = Math.floor(elapsedTime / 60);
+        const seconds = elapsedTime % 60;
 
         return (
             <div className="quiz-results">
@@ -150,41 +221,73 @@ const QuizView = ({ quiz, topic, subjectName }) => {
                     <p>⏱️ Time taken: {minutes}m {seconds}s</p>
                 </div>
 
-                <button className="btn-restart" onClick={handleRestart}>
-                    🔄 Try Again
-                </button>
+                <div className="results-actions">
+                    <button className="btn-restart" onClick={handleRestart}>
+                        🔄 Try Again
+                    </button>
+                    {onClose && (
+                        <button className="btn-close" onClick={onClose}>
+                            ← Back to Topics
+                        </button>
+                    )}
+                </div>
             </div>
         );
     }
 
+    // Quiz time limit (default to 60 minutes if not set)
+    const totalTimeLimit = quiz.timeLimit || 3600; // in seconds
+
+    // Full-screen quiz view
     return (
-        <div className="quiz-view">
-            <div className="quiz-header">
-                <h3>{quiz.title}</h3>
-                <div className="quiz-progress">
-                    <span>Question {currentQuestionIndex + 1} of {totalQuestions}</span>
-                    <div className="progress-bar">
-                        <div
-                            className="progress-fill"
-                            style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}
-                        ></div>
-                    </div>
+        <div className={`quiz-view ${isFullScreen ? 'quiz-fullscreen' : ''}`}>
+            {/* Full-screen Header */}
+            <div className="quiz-fullscreen-header">
+                <button className="topic-toggle-btn" onClick={onClose}>
+                    ← {topic?.name || 'Topics'}
+                </button>
+                <h1 className="quiz-title">{quiz.title}</h1>
+                <div className="quiz-timer">
+                    <span className="timer-elapsed">⏱️ {formatTime(elapsedTime)}</span>
+                    <span className="timer-divider">/</span>
+                    <span className="timer-total">{formatTime(totalTimeLimit)}</span>
                 </div>
             </div>
 
-            <QuestionCard
-                question={currentQuestion}
-                selectedAnswer={answers[currentQuestion.id]}
-                onAnswer={(answerIndex) => handleAnswer(currentQuestion.id, answerIndex)}
-            />
+            {/* Question Info Bar */}
+            <div className="question-info-bar">
+                <div className="question-counter">
+                    Q: {currentQuestionIndex + 1}/{totalQuestions}
+                </div>
+                <div className="question-marks">
+                    Marks: {currentQuestion.marks || 1}
+                </div>
+                <button
+                    className={`flag-btn ${questionStatus[currentQuestion.id] === 'flagged' ? 'flagged' : ''}`}
+                    onClick={() => toggleFlag(currentQuestion.id)}
+                    title={questionStatus[currentQuestion.id] === 'flagged' ? 'Unflag question' : 'Flag for review'}
+                >
+                    {questionStatus[currentQuestion.id] === 'flagged' ? '🚩' : '⚑'}
+                </button>
+            </div>
 
+            {/* Question Card */}
+            <div className="quiz-content">
+                <QuestionCard
+                    question={currentQuestion}
+                    selectedAnswer={answers[currentQuestion.id]}
+                    onAnswer={(answerIndex) => handleAnswer(currentQuestion.id, answerIndex)}
+                />
+            </div>
+
+            {/* Navigation Buttons */}
             <div className="quiz-navigation">
                 <button
                     className="btn-nav btn-previous"
                     onClick={handlePrevious}
                     disabled={currentQuestionIndex === 0 || savingResult}
                 >
-                    ⬅️ Previous
+                    ◀ Previous
                 </button>
 
                 <button
@@ -192,8 +295,49 @@ const QuizView = ({ quiz, topic, subjectName }) => {
                     onClick={handleNext}
                     disabled={savingResult}
                 >
-                    {savingResult ? 'Saving...' : (currentQuestionIndex === totalQuestions - 1 ? 'Finish 🏁' : 'Next ➡️')}
+                    {currentQuestionIndex === totalQuestions - 1 ? 'Next ▶' : 'Next ▶'}
                 </button>
+
+                <button
+                    className="btn-submit"
+                    onClick={submitResult}
+                    disabled={savingResult}
+                >
+                    {savingResult ? 'Submitting...' : 'SUBMIT TEST'}
+                </button>
+            </div>
+
+            {/* Question Palette */}
+            <div className="question-palette-container">
+                <div className="palette-header">
+                    <span>Questions</span>
+                </div>
+                <div className="question-palette">
+                    {quiz.questions.map((q, index) => (
+                        <button
+                            key={q.id}
+                            className={`q-number ${getStatusClass(q.id)} ${index === currentQuestionIndex ? 'current' : ''}`}
+                            onClick={() => goToQuestion(index)}
+                            title={`Question ${index + 1} - ${getStatusClass(q.id).replace('-', ' ')}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+                <div className="palette-legend">
+                    <div className="legend-item">
+                        <span className="legend-dot not-attempted"></span>
+                        <span>Not Attempted</span>
+                    </div>
+                    <div className="legend-item">
+                        <span className="legend-dot attempted"></span>
+                        <span>Attempted</span>
+                    </div>
+                    <div className="legend-item">
+                        <span className="legend-dot flagged"></span>
+                        <span>Marked for Review</span>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -104,17 +104,25 @@ const TopicSection = ({ topic, subjectName, onVideoClick }) => {
                     </div>
                 </div>
             ) : (
-                <div className="quiz-container">
+                <>
                     {loadingQuiz ? (
-                        <div className="quiz-loading">Loading quiz...</div>
-                    ) : (
+                        <div className="quiz-loading">
+                            <div className="spinner"></div>
+                            <p>Loading quiz...</p>
+                        </div>
+                    ) : quiz ? (
                         <QuizView
                             quiz={quiz}
                             topic={topic}
                             subjectName={subjectName}
+                            onClose={() => setViewMode('videos')}
                         />
+                    ) : (
+                        <div className="no-quiz">
+                            <p>📝 Quiz coming soon for this topic!</p>
+                        </div>
                     )}
-                </div>
+                </>
             )}
         </div>
     );
