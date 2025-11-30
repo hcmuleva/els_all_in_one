@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import nearMeAPI from '../services/nearMeAPI';
 import { calculateDistance } from '../utils/geoUtils';
 import UserCard from '../components/nearme/UserCard';
+import MapView from '../components/nearme/MapView';
 import './NearMe.css';
 
 const NearMe = () => {
@@ -11,6 +12,7 @@ const NearMe = () => {
     const [loading, setLoading] = useState(true);
     const [currentUserLocation, setCurrentUserLocation] = useState(null);
     const [error, setError] = useState(null);
+    const [activeView, setActiveView] = useState('cards'); // 'cards' or 'map'
 
     useEffect(() => {
         loadNearbyUsers();
@@ -58,7 +60,11 @@ const NearMe = () => {
 
                 return {
                     ...u,
-                    distance
+                    distance,
+                    location: {
+                        lat: parseFloat(u.home_address.latitude),
+                        lng: parseFloat(u.home_address.longitude)
+                    }
                 };
             });
 
@@ -124,15 +130,45 @@ const NearMe = () => {
                 )}
             </div>
 
-            <div className="users-grid">
-                {users.map(user => (
-                    <UserCard
-                        key={user.id}
-                        user={user}
-                        distance={user.distance}
-                    />
-                ))}
+            {/* View Tabs */}
+            <div className="view-tabs">
+                <button
+                    className={`tab-button ${activeView === 'cards' ? 'active' : ''}`}
+                    onClick={() => setActiveView('cards')}
+                >
+                    <span className="tab-icon">📋</span>
+                    Card View
+                </button>
+                <button
+                    className={`tab-button ${activeView === 'map' ? 'active' : ''}`}
+                    onClick={() => setActiveView('map')}
+                >
+                    <span className="tab-icon">🗺️</span>
+                    Map View
+                </button>
             </div>
+
+            {/* Card View */}
+            {activeView === 'cards' && (
+                <div className="users-grid">
+                    {users.map(user => (
+                        <UserCard
+                            key={user.id}
+                            user={user}
+                            distance={user.distance}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {/* Map View */}
+            {activeView === 'map' && (
+                <MapView
+                    users={users}
+                    currentUserLocation={currentUserLocation}
+                    currentUser={currentUser}
+                />
+            )}
         </div>
     );
 };
