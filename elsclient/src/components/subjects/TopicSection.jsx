@@ -108,7 +108,11 @@ const TopicSection = ({ topic, subjectName, onVideoClick }) => {
                     {loadingQuiz ? (
                         <div className="quiz-loading">Loading quiz...</div>
                     ) : (
-                        <QuizView quiz={quiz} />
+                        <QuizView
+                            quiz={quiz}
+                            topic={topic}
+                            subjectName={subjectName}
+                        />
                     )}
                 </div>
             )}

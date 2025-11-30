@@ -1162,82 +1162,43 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
 export interface ApiQuizResultQuizResult extends Struct.CollectionTypeSchema {
   collectionName: 'quiz_results';
   info: {
-    description: 'Student quiz results and performance tracking';
+    description: 'Stores user quiz attempts and scores';
     displayName: 'Quiz Result';
     pluralName: 'quiz-results';
     singularName: 'quiz-result';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
-    answers: Schema.Attribute.JSON & Schema.Attribute.Required;
-    areasForImprovement: Schema.Attribute.JSON;
-    attemptNumber: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<1>;
-    autoGrade: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    certificateIssued: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>;
-    certificateUrl: Schema.Attribute.String;
+    answers: Schema.Attribute.JSON;
     completedAt: Schema.Attribute.DateTime;
-    correctAnswers: Schema.Attribute.Integer & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    deviceInfo: Schema.Attribute.JSON;
-    difficultyBreakdown: Schema.Attribute.JSON;
-    feedback: Schema.Attribute.RichText;
-    geoLocation: Schema.Attribute.JSON;
-    ipAddress: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::quiz-result.quiz-result'
     > &
       Schema.Attribute.Private;
-    manualReview: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    percentage: Schema.Attribute.Decimal &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      >;
-    plagiarismScore: Schema.Attribute.Decimal &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 100;
-          min: 0;
-        },
-        number
-      >;
+    percentage: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    questionPerformance: Schema.Attribute.JSON;
+    questionTimings: Schema.Attribute.JSON;
     quiz: Schema.Attribute.Relation<'manyToOne', 'api::quiz.quiz'>;
-    reviewNotes: Schema.Attribute.Text;
     score: Schema.Attribute.Integer & Schema.Attribute.Required;
-    startedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    status: Schema.Attribute.Enumeration<
-      ['in-progress', 'completed', 'abandoned', 'timed-out']
-    > &
-      Schema.Attribute.DefaultTo<'in-progress'>;
-    strengths: Schema.Attribute.JSON;
+    startedAt: Schema.Attribute.DateTime;
     student: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Required;
-    submittedAt: Schema.Attribute.DateTime;
-    timePerQuestion: Schema.Attribute.JSON;
-    timeSpent: Schema.Attribute.Integer & Schema.Attribute.Required;
+    >;
+    subject: Schema.Attribute.Relation<'manyToOne', 'api::subject.subject'>;
+    timeTaken: Schema.Attribute.Integer;
+    topic: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;
     totalQuestions: Schema.Attribute.Integer & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    userAgent: Schema.Attribute.Text;
   };
 }
 
@@ -1314,6 +1275,10 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     questions: Schema.Attribute.Relation<
       'manyToMany',
       'api::question.question'
+    >;
+    quizResults: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
     >;
     quizType: Schema.Attribute.Enumeration<
       ['standalone', 'kit', 'level', 'lesson']
@@ -1436,6 +1401,14 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    quiz_results: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
+    >;
+    quizResults: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
+    >;
     quizzes: Schema.Attribute.Relation<'oneToMany', 'api::quiz.quiz'>;
     topics: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -1497,6 +1470,14 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    quiz_results: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
+    >;
+    quizResults: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
+    >;
     quizzes: Schema.Attribute.Relation<'oneToMany', 'api::quiz.quiz'>;
     subject: Schema.Attribute.Relation<'manyToOne', 'api::subject.subject'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -2280,6 +2261,10 @@ export interface PluginUsersPermissionsUser
     >;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    quiz_results: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quiz-result.quiz-result'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',

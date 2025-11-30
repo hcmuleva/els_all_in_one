@@ -201,6 +201,12 @@
       "relation": "oneToMany",
       "target": "api::userrole.userrole",
       "mappedBy": "user"
+    },
+    "quiz_results": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz-result.quiz-result",
+      "mappedBy": "student"
     }
   }
 }

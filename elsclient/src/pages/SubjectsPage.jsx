@@ -77,6 +77,7 @@ const SubjectsPage = () => {
                             <TopicSection
                                 key={topic.id}
                                 topic={topic}
+                                subject={selectedSubject}
                                 subjectName={selectedSubject.name}
                                 onVideoClick={handleVideoClick}
                             />
