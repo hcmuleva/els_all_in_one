@@ -1,0 +1,123 @@
+.dashboard-quiz-analysis {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-quiz-analysis h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.quiz-selectors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.selector-group label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+.selector-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.selector-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.selector-meta {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 0.25rem;
+}
+
+.analysis-container {
+    background: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Override QuizResultAnalysis header background for dashboard context */
+.analysis-container .analysis-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin-bottom: 0;
+    border-radius: 12px 12px 0 0;
+}
+
+.analysis-container .user-name-analysis {
+    color: white;
+}
+
+.loading-state,
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #718096;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.empty-hint {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: #a0aec0;
+}
+
+@media (max-width: 768px) {
+    .dashboard-quiz-analysis {
+        padding: 1rem;
+    }
+
+    .quiz-selectors {
+        grid-template-columns: 1fr;
+    }
+}

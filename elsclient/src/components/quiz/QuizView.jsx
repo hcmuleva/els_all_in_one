@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuestionCard from './QuestionCard';
+import QuizResultAnalysis from './QuizResultAnalysis';
 import { quizResultAPI } from '../../services/quizResult';
 import './QuizView.css';
 
@@ -7,6 +8,8 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
+    const [showAnalysis, setShowAnalysis] = useState(false);
+    const [lastResult, setLastResult] = useState(null);
     const [savingResult, setSavingResult] = useState(false);
 
     // Full-screen and status tracking
@@ -110,12 +113,44 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
 
     const calculateScore = () => {
         let correct = 0;
-        quiz.questions.forEach((q) => {
+        console.log('=== SCORE CALCULATION DEBUG ===');
+        console.log('Total questions:', quiz.questions.length);
+        console.log('User answers:', answers);
+
+        quiz.questions.forEach((q, index) => {
             const userAnswer = answers[q.id];
-            if (userAnswer !== undefined && q.correctAnswers && q.correctAnswers.includes(userAnswer)) {
+            console.log(`\nQuestion ${index + 1} (ID: ${q.id}):`);
+            console.log('  User answer index:', userAnswer);
+            console.log('  correctAnswers array:', q.correctAnswers);
+            console.log('  Options type:', typeof q.options?.[0]);
+            console.log('  First option:', q.options?.[0]);
+
+            if (userAnswer === undefined) {
+                console.log('  Result: SKIPPED (no answer)');
+                return;
+            }
+
+            // Check if correctAnswers array exists and includes the user's answer
+            if (q.correctAnswers && q.correctAnswers.includes(userAnswer)) {
                 correct++;
+                console.log('  Result: CORRECT (via correctAnswers array)');
+            }
+            // Fallback: Check if options are objects with isCorrect property (JNVST style)
+            else if (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object') {
+                const selectedOption = q.options[userAnswer];
+                console.log('  Selected option:', selectedOption);
+                if (selectedOption && selectedOption.isCorrect === true) {
+                    correct++;
+                    console.log('  Result: CORRECT (via isCorrect property)');
+                } else {
+                    console.log('  Result: WRONG');
+                }
+            } else {
+                console.log('  Result: WRONG (no matching criteria)');
             }
         });
+
+        console.log('\n=== FINAL SCORE:', correct, '/', quiz.questions.length, '===\n');
         return correct;
     };
 
@@ -145,6 +180,18 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
                 student: currentUser?.id
             });
             console.log('Quiz result saved successfully!');
+            // Store result data for analysis
+            setLastResult({
+                score,
+                totalQuestions,
+                percentage,
+                answers,
+                questionTimings,
+                timeTaken,
+                quiz: quiz.documentId,
+                topic: topic?.documentId
+            });
+
         } catch (error) {
             console.error('Failed to save quiz result:', error);
         } finally {
@@ -193,6 +240,17 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
         return status;
     };
 
+    // Show analysis view if requested
+    if (showAnalysis && lastResult) {
+        return (
+            <QuizResultAnalysis
+                quizResult={lastResult}
+                quiz={quiz}
+                onClose={() => setShowAnalysis(false)}
+            />
+        );
+    }
+
     // Results view
     if (showResults) {
         const score = calculateScore();
@@ -222,6 +280,9 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
                 </div>
 
                 <div className="results-actions">
+                    <button className="btn-analysis" onClick={() => setShowAnalysis(true)}>
+                        📊 View Detailed Analysis
+                    </button>
                     <button className="btn-restart" onClick={handleRestart}>
                         🔄 Try Again
                     </button>

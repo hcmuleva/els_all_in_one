@@ -1,5 +1,6 @@
 import { useAuth } from '../context/AuthContext';
 import QuizAnalyticsDashboard from '../components/dashboard/QuizAnalyticsDashboard';
+import DashboardQuizAnalysis from '../components/dashboard/DashboardQuizAnalysis';
 import './Dashboard.css';
 
 // Assets
@@ -30,6 +31,9 @@ const Dashboard = () => {
 
                 {/* Quiz Analytics Dashboard */}
                 <QuizAnalyticsDashboard />
+
+                {/* Detailed Quiz Review */}
+                <DashboardQuizAnalysis />
             </div>
         </div>
     );

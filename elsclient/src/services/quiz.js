@@ -12,6 +12,18 @@ export const quizAPI = {
         return response.data;
     },
 
+    // Get single quiz by ID with questions
+    getById: async (id) => {
+        const response = await api.get(`/quizzes`, {
+            params: {
+                'filters[id][$eq]': id,
+                'populate': 'questions'
+            }
+        });
+        // Return the first item from the list response
+        return { data: response.data.data[0] };
+    },
+
     // Get all quizzes
     getAll: async () => {
         const response = await api.get('/quizzes?populate=questions');

@@ -1,0 +1,264 @@
+/* Quiz Result Analysis Component */
+
+.quiz-result-analysis {
+    min-height: 100vh;
+    background: #f7fafc;
+    overflow-y: auto;
+}
+
+/* Header */
+.analysis-header {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    padding: 2rem;
+    position: relative;
+}
+
+.close-analysis-btn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-analysis-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.user-profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.user-avatar-analysis {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #14b8a6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-name-analysis {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+/* Donut Chart */
+.donut-chart-container {
+    padding: 2rem;
+    background: white;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.donut-chart {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.donut-segment {
+    transition: opacity 0.3s ease;
+}
+
+.donut-center-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    fill: #2d3748;
+}
+
+/* Legend */
+.donut-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.legend-item-analysis {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.correct-color {
+    background: #14b8a6;
+}
+
+.incorrect-color {
+    background: #1e3a8a;
+}
+
+.unanswered-color {
+    background: #fbbf24;
+}
+
+.legend-label {
+    font-size: 0.875rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+/* Time Chart */
+.time-chart-container {
+    padding: 2rem;
+    background: white;
+    margin: 1rem auto;
+    max-width: 600px;
+    border-radius: 12px;
+}
+
+.time-chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+.time-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.time-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.question-number-box {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.question-number-box.correct {
+    background: #14b8a6;
+}
+
+.question-number-box.incorrect {
+    background: #1e3a8a;
+}
+
+.question-number-box.unanswered {
+    background: #fbbf24;
+}
+
+.time-bar-wrapper {
+    flex: 1;
+    height: 45px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.time-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    min-width: 60px;
+}
+
+.time-bar.correct {
+    background: #14b8a6;
+}
+
+.time-bar.incorrect {
+    background: #1e3a8a;
+}
+
+.time-bar.unanswered {
+    background: #fbbf24;
+}
+
+.time-label {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .analysis-header {
+        padding: 1.5rem;
+    }
+
+    .user-avatar-analysis {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+
+    .user-name-analysis {
+        font-size: 1.5rem;
+    }
+
+    .donut-chart-container {
+        padding: 1.5rem;
+    }
+
+    .donut-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .time-chart-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .question-number-box {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .time-bar-wrapper {
+        height: 40px;
+    }
+
+    .time-label {
+        font-size: 0.75rem;
+    }
+}
