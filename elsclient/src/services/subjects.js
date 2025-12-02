@@ -12,6 +12,18 @@ export const subjectAPI = {
             }
         });
         return response.data;
+    },
+    getById: async (id) => {
+        const response = await api.get(`/subjects/${id}`, {
+            params: {
+                populate: {
+                    topics: {
+                        populate: ['contents', 'subject']
+                    }
+                }
+            }
+        });
+        return response.data;
     }
 };
 

@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import ProfilePage from './pages/ProfilePage';
 import SubjectsPage from './pages/SubjectsPage';
+import GK3Page from './pages/GK3Page';
 import NearMe from './pages/NearMe';
 import Layout from './components/common/Layout';
 import './App.css';
@@ -102,6 +103,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <NearMe />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gk3"
+            element={
+              <ProtectedRoute>
+                <GK3Page />
               </ProtectedRoute>
             }
           />

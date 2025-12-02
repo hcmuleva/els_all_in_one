@@ -17,6 +17,9 @@
     "description": {
       "type": "string"
     },
+    "icon": {
+      "type": "string"
+    },
     "subject": {
       "type": "relation",
       "relation": "manyToOne",

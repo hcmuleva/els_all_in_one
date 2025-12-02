@@ -13,6 +13,7 @@ const TopNav = () => {
     const navItems = [
         { id: 'home', label: 'Home', path: '/dashboard' },
         { id: 'subjects', label: 'Subjects', path: '/subjects' },
+        { id: 'gk3', label: 'GK3', path: '/gk3' },
         { id: 'nearme', label: '📍 NearMe', path: '/near-me' },
         { id: 'leaderboard', label: 'Leaderboard', path: '/leaderboard' },
         { id: 'profile', label: 'My Profile', path: '/profile' },

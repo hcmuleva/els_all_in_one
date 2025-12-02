@@ -4,7 +4,8 @@ import QuizResultAnalysis from './QuizResultAnalysis';
 import { quizResultAPI } from '../../services/quizResult';
 import './QuizView.css';
 
-const QuizView = ({ quiz, topic, subjectName, onClose }) => {
+const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previousResult = null }) => {
+    const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
@@ -22,30 +23,64 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
     const [questionTimings, setQuestionTimings] = useState({});
     const [elapsedTime, setElapsedTime] = useState(0);
 
-    // Initialize timing and question statuses when quiz loads
+    // Initialize questions based on filter
     useEffect(() => {
+        if (!quiz || !quiz.questions) return;
+
+        let filteredQuestions = [...quiz.questions];
+
+        if (filterType !== 'all' && previousResult && previousResult.answers) {
+            filteredQuestions = quiz.questions.filter(q => {
+                const userAnswer = previousResult.answers[q.id];
+                const isUnattempted = userAnswer === undefined;
+
+                // Helper to check correctness (copied from QuizResultAnalysis logic)
+                let isCorrect = false;
+                if (!isUnattempted) {
+                    if (q.correctAnswers && q.correctAnswers.includes(userAnswer)) {
+                        isCorrect = true;
+                    } else if (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object') {
+                        const selectedOption = q.options[userAnswer];
+                        isCorrect = selectedOption && selectedOption.isCorrect === true;
+                    }
+                }
+
+                if (filterType === 'incorrect') return !isUnattempted && !isCorrect;
+                if (filterType === 'unattempted') return isUnattempted;
+                if (filterType === 'incorrect_unattempted') return isUnattempted || !isCorrect;
+                return true;
+            });
+        }
+
+        setQuestions(filteredQuestions);
+
+        // Reset state for new set of questions
+        setCurrentQuestionIndex(0);
+        setAnswers({});
+        setShowResults(false);
         const now = new Date();
         setQuizStartTime(now);
         setQuestionStartTime(now);
 
-        // Initialize all questions as not-attempted
+        // Initialize statuses
         const initialStatus = {};
-        quiz.questions.forEach(q => {
+        filteredQuestions.forEach(q => {
             initialStatus[q.id] = 'not-attempted';
         });
         setQuestionStatus(initialStatus);
-    }, []);
+
+    }, [quiz, filterType, previousResult]);
 
     // Timer effect - runs every second when quiz is active
     useEffect(() => {
-        if (!showResults && quizStartTime) {
+        if (!showResults && quizStartTime && questions.length > 0) {
             const interval = setInterval(() => {
                 setElapsedTime(Math.floor((new Date() - quizStartTime) / 1000));
             }, 1000);
 
             return () => clearInterval(interval);
         }
-    }, [showResults, quizStartTime]);
+    }, [showResults, quizStartTime, questions.length]);
 
     if (!quiz || !quiz.questions || quiz.questions.length === 0) {
         return (
@@ -56,8 +91,22 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
         );
     }
 
-    const currentQuestion = quiz.questions[currentQuestionIndex];
-    const totalQuestions = quiz.questions.length;
+    if (questions.length === 0 && filterType !== 'all') {
+        return (
+            <div className="quiz-empty">
+                <div className="empty-icon">✨</div>
+                <p>No questions match your retake criteria!</p>
+                <button className="btn-close" onClick={onClose}>
+                    ← Go Back
+                </button>
+            </div>
+        );
+    }
+
+    if (questions.length === 0) return null; // Loading or empty
+
+    const currentQuestion = questions[currentQuestionIndex];
+    const totalQuestions = questions.length;
 
     // Format time as MM:SS
     const formatTime = (seconds) => {
@@ -114,10 +163,10 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
     const calculateScore = () => {
         let correct = 0;
         console.log('=== SCORE CALCULATION DEBUG ===');
-        console.log('Total questions:', quiz.questions.length);
+        console.log('Total questions:', questions.length);
         console.log('User answers:', answers);
 
-        quiz.questions.forEach((q, index) => {
+        questions.forEach((q, index) => {
             const userAnswer = answers[q.id];
             console.log(`\nQuestion ${index + 1} (ID: ${q.id}):`);
             console.log('  User answer index:', userAnswer);
@@ -150,7 +199,7 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
             }
         });
 
-        console.log('\n=== FINAL SCORE:', correct, '/', quiz.questions.length, '===\n');
+        console.log('\n=== FINAL SCORE:', correct, '/', questions.length, '===\n');
         return correct;
     };
 
@@ -228,7 +277,7 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
 
         // Reset all statuses
         const initialStatus = {};
-        quiz.questions.forEach(q => {
+        questions.forEach(q => {
             initialStatus[q.id] = 'not-attempted';
         });
         setQuestionStatus(initialStatus);
@@ -374,7 +423,7 @@ const QuizView = ({ quiz, topic, subjectName, onClose }) => {
                     <span>Questions</span>
                 </div>
                 <div className="question-palette">
-                    {quiz.questions.map((q, index) => (
+                    {questions.map((q, index) => (
                         <button
                             key={q.id}
                             className={`q-number ${getStatusClass(q.id)} ${index === currentQuestionIndex ? 'current' : ''}`}

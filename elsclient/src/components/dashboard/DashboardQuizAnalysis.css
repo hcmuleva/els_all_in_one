@@ -121,3 +121,125 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 768px) {
+    .dashboard-quiz-analysis {
+        padding: 1rem;
+    }
+
+    .quiz-selectors {
+        grid-template-columns: 1fr;
+    }
+
+    .retake-buttons {
+        flex-direction: column;
+    }
+}
+
+/* Retake Actions */
+.retake-actions {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.retake-label {
+    display: block;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.retake-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-retake {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-retake:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-retake:active {
+    transform: translateY(0);
+}
+
+.btn-retake-full {
+    background: #4299e1;
+    color: white;
+}
+
+.btn-retake-full:hover {
+    background: #3182ce;
+}
+
+.btn-retake-incorrect {
+    background: #f56565;
+    color: white;
+}
+
+.btn-retake-incorrect:hover {
+    background: #e53e3e;
+}
+
+.btn-retake-unattempted {
+    background: #ecc94b;
+    color: #744210;
+}
+
+.btn-retake-unattempted:hover {
+    background: #d69e2e;
+}
+
+/* Modal Overlay */
+.quiz-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.quiz-modal-content {
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Ensure QuizView fits in modal */
+.quiz-modal-content .quiz-view {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.quiz-modal-content .quiz-fullscreen-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { quizResultAPI } from '../../services/quizResult';
 import { quizAPI } from '../../services/quiz';
 import QuizResultAnalysis from '../quiz/QuizResultAnalysis';
+import QuizView from '../quiz/QuizView';
 import './DashboardQuizAnalysis.css';
 
 const DashboardQuizAnalysis = () => {
@@ -13,6 +14,9 @@ const DashboardQuizAnalysis = () => {
     const [selectedResult, setSelectedResult] = useState(null);
     const [fullQuizData, setFullQuizData] = useState({}); // Cache for full quiz details
     const [loadingQuizDetails, setLoadingQuizDetails] = useState(false);
+
+    // Retake state
+    const [retakeConfig, setRetakeConfig] = useState(null); // { quiz, filterType, previousResult }
 
     useEffect(() => {
         loadQuizResults();
@@ -100,6 +104,22 @@ const DashboardQuizAnalysis = () => {
         setSelectedResult(result);
     };
 
+    const handleRetake = (filterType) => {
+        if (!fullQuizData[selectedQuizId] || !selectedResult) return;
+
+        setRetakeConfig({
+            quiz: fullQuizData[selectedQuizId],
+            filterType,
+            previousResult: selectedResult
+        });
+    };
+
+    const closeRetake = () => {
+        setRetakeConfig(null);
+        // Refresh results to show new attempt
+        loadQuizResults();
+    };
+
     const formatAttemptLabel = (result, index, attempts) => {
         const date = new Date(result.completedAt);
         const dateStr = date.toLocaleDateString('en-US', {
@@ -143,6 +163,22 @@ const DashboardQuizAnalysis = () => {
     const selectedQuizGroup = groupedQuizzes[selectedQuizId];
     const attempts = selectedQuizGroup?.attempts || [];
     const fullQuiz = fullQuizData[selectedQuizId];
+
+    // Calculate counts for retake buttons
+    let incorrectCount = 0;
+    let unattemptedCount = 0;
+
+    if (selectedResult && fullQuiz) {
+        const totalQuestions = fullQuiz.questions.length;
+        const correct = selectedResult.score || 0;
+        const totalAnswered = Object.keys(selectedResult.answers || {}).length;
+        incorrectCount = totalAnswered - correct; // Approximation based on score
+        unattemptedCount = totalQuestions - totalAnswered;
+
+        // More accurate count if we iterate (optional but better)
+        // For now, simple math is okay, but incorrect count might be slightly off if partial marks exist.
+        // Let's stick to simple logic for UI buttons.
+    }
 
     return (
         <div className="dashboard-quiz-analysis">
@@ -192,6 +228,30 @@ const DashboardQuizAnalysis = () => {
                 )}
             </div>
 
+            {/* Retake Actions */}
+            {selectedResult && fullQuiz && !loadingQuizDetails && (
+                <div className="retake-actions">
+                    <span className="retake-label">Retake Options:</span>
+                    <div className="retake-buttons">
+                        <button className="btn-retake btn-retake-full" onClick={() => handleRetake('all')}>
+                            🔄 Full Quiz
+                        </button>
+
+                        {incorrectCount > 0 && (
+                            <button className="btn-retake btn-retake-incorrect" onClick={() => handleRetake('incorrect')}>
+                                ❌ Incorrect Only
+                            </button>
+                        )}
+
+                        {unattemptedCount > 0 && (
+                            <button className="btn-retake btn-retake-unattempted" onClick={() => handleRetake('unattempted')}>
+                                ⏭️ Unattempted Only
+                            </button>
+                        )}
+                    </div>
+                </div>
+            )}
+
             {/* Analysis Display */}
             {loadingQuizDetails ? (
                 <div className="loading-state">
@@ -208,6 +268,24 @@ const DashboardQuizAnalysis = () => {
                         />
                     </div>
                 )
+            )}
+
+            {/* Retake Modal */}
+            {retakeConfig && (
+                <div className="quiz-modal-overlay">
+                    <div className="quiz-modal-content">
+                        <QuizView
+                            quiz={retakeConfig.quiz}
+                            topic={{
+                                name: selectedQuizGroup?.topic,
+                                subject: { name: selectedQuizGroup?.subject }
+                            }}
+                            onClose={closeRetake}
+                            filterType={retakeConfig.filterType}
+                            previousResult={retakeConfig.previousResult}
+                        />
+                    </div>
+                </div>
             )}
         </div>
     );
