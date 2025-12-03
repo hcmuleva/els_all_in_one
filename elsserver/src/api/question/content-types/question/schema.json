@@ -166,6 +166,26 @@
       "relation": "manyToMany",
       "target": "api::tag-year.tag-year",
       "inversedBy": "questions"
+    },
+    "subjectRef": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "questions"
+    },
+    "topicRef": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::topic.topic",
+      "inversedBy": "questions"
+    },
+    "level": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

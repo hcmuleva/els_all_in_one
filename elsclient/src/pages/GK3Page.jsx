@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { subjectAPI } from '../services/subjects';
+import { fetchQuizForTopic } from '../services/quiz';
+import QuizView from '../components/quiz/QuizView';
 import './GK3Page.css';
 
 const GK3Page = () => {
     console.log("GK3Page");
     const [topics, setTopics] = useState([]);
     const [loading, setLoading] = useState(true);
-    const SUBJECT_ID = "gvzucbgegjcfiz5ojzugwj9l";
-
     const [debugData, setDebugData] = useState(null);
+    const [selectedTopicId, setSelectedTopicId] = useState(null);
+    const [topicQuizzes, setTopicQuizzes] = useState({});
+    const [quizLoading, setQuizLoading] = useState(false);
+    const [quizError, setQuizError] = useState(null);
+    const SUBJECT_ID = "gvzucbgegjcfiz5ojzugwj9l";
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -36,6 +41,44 @@ const GK3Page = () => {
 
         fetchTopics();
     }, []);
+
+    const handleTopicClick = async (topic) => {
+        if (!topic?.documentId) return;
+
+        setSelectedTopicId(topic.documentId);
+        setQuizError(null);
+
+        // Use cached quiz if available
+        if (topicQuizzes[topic.documentId]) {
+            return;
+        }
+
+        setQuizLoading(true);
+        try {
+            const quizData = await fetchQuizForTopic(topic.documentId);
+            if (!quizData) {
+                setQuizError('Quiz coming soon for this topic.');
+                return;
+            }
+            setTopicQuizzes(prev => ({
+                ...prev,
+                [topic.documentId]: quizData
+            }));
+        } catch (error) {
+            console.error('Failed to load quiz:', error);
+            setQuizError('Failed to load quiz. Please try again.');
+        } finally {
+            setQuizLoading(false);
+        }
+    };
+
+    const handleCloseQuiz = () => {
+        setSelectedTopicId(null);
+        setQuizError(null);
+    };
+
+    const selectedTopic = topics.find(topic => topic.documentId === selectedTopicId);
+    const selectedQuiz = selectedTopicId ? topicQuizzes[selectedTopicId] : null;
 
     if (loading) {
         return (
@@ -67,12 +110,48 @@ const GK3Page = () => {
             <h1 className="gk3-title">General Knowledge (GK3)</h1>
             <div className="gk3-grid">
                 {topics.map((topic) => (
-                    <div key={topic.id} className="gk3-card">
+                    <button
+                        type="button"
+                        key={topic.id}
+                        className="gk3-card"
+                        onClick={() => handleTopicClick(topic)}
+                    >
                         <div className="gk3-icon">{topic.icon || '📚'}</div>
                         <h3 className="gk3-topic-name">{topic.name}</h3>
-                    </div>
+                        <p className="gk3-card-cta">Play Quiz</p>
+                    </button>
                 ))}
             </div>
+
+            {selectedTopicId && (
+                <div className="gk3-quiz-overlay">
+                    <div className="gk3-quiz-shell">
+                        {quizLoading && !selectedQuiz ? (
+                            <div className="gk3-quiz-loading">
+                                <div className="loading-spinner small"></div>
+                                <p>Loading quiz...</p>
+                                <button className="gk3-quiz-close" onClick={handleCloseQuiz}>
+                                    Cancel
+                                </button>
+                            </div>
+                        ) : quizError ? (
+                            <div className="gk3-quiz-error">
+                                <p>{quizError}</p>
+                                <button className="gk3-quiz-close" onClick={handleCloseQuiz}>
+                                    Back to topics
+                                </button>
+                            </div>
+                        ) : selectedQuiz ? (
+                            <QuizView
+                                quiz={selectedQuiz}
+                                topic={selectedTopic}
+                                subjectName="GK3"
+                                onClose={handleCloseQuiz}
+                            />
+                        ) : null}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -1098,6 +1098,12 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1149,6 +1155,7 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    subjectRef: Schema.Attribute.Relation<'manyToOne', 'api::subject.subject'>;
     tag_exams: Schema.Attribute.Relation<
       'manyToMany',
       'api::tag-exam.tag-exam'
@@ -1166,6 +1173,7 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    topicRef: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1415,6 +1423,7 @@ export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     quiz_results: Schema.Attribute.Relation<
       'oneToMany',
       'api::quiz-result.quiz-result'
@@ -1549,6 +1558,7 @@ export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     quiz_results: Schema.Attribute.Relation<
       'oneToMany',
       'api::quiz-result.quiz-result'

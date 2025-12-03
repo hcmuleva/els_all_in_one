@@ -49,6 +49,12 @@
       "relation": "oneToMany",
       "target": "api::quiz-result.quiz-result",
       "mappedBy": "topic"
+    },
+    "questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question.question",
+      "mappedBy": "topicRef"
     }
   }
 }
