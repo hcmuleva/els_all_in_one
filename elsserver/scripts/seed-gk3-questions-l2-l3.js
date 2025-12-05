@@ -39,6 +39,86 @@ const LEVEL_2_DATA = {
         createQuestion("The length of a rectangle is halved, while its breadth is tripled. What is the percentage change in area?", [{ id: "a", text: "25% increase" }, { id: "b", text: "50% increase" }, { id: "c", text: "50% decrease" }, { id: "d", text: "75% decrease" }], ["b"], 2, "medium", 20),
         createQuestion("The difference between the length and breadth of a rectangle is 23 m. If its perimeter is 206 m, then its area is:", [{ id: "a", text: "1520" }, { id: "b", text: "2420" }, { id: "c", text: "2480" }, { id: "d", text: "2520" }], ["d"], 2, "medium", 20),
         createQuestion("The breadth of a rectangular hall is three-fourths of its length. If the area of the floor is 768 sq. m, then the difference between the length and breadth of the hall is:", [{ id: "a", text: "8" }, { id: "b", text: "12" }, { id: "c", text: "24" }, { id: "d", text: "32" }], ["a"], 2, "medium", 20)
+    ],
+    "Interest": [
+        createQuestion("A sum of money amounts to Rs. 9800 after 5 years and Rs. 12005 after 8 years at the same rate of simple interest. The rate of interest per annum is:", [{ id: "a", text: "5%" }, { id: "b", text: "8%" }, { id: "c", text: "12%" }, { id: "d", text: "15%" }], ["c"], 2, "medium", 20),
+        createQuestion("What will be the compound interest on Rs. 25000 after 3 years at the rate of 12% per annum?", [{ id: "a", text: "Rs. 9000" }, { id: "b", text: "Rs. 9720" }, { id: "c", text: "Rs. 10123.20" }, { id: "d", text: "Rs. 11000" }], ["c"], 2, "medium", 20),
+        createQuestion("A man borrowed Rs. 5000 at 10% per annum compound interest. At the end of each year he has repaid Rs. 1500. The amount of money he still owes after the third year is:", [{ id: "a", text: "Rs. 1600" }, { id: "b", text: "Rs. 1690" }, { id: "c", text: "Rs. 1705" }, { id: "d", text: "Rs. 1795" }], ["c"], 2, "medium", 20)
+    ],
+    "Boats & Streams": [
+        createQuestion("A boat can travel with a speed of 13 km/hr in still water. If the speed of the stream is 4 km/hr, find the time taken by the boat to go 68 km downstream.", [{ id: "a", text: "2 hours" }, { id: "b", text: "3 hours" }, { id: "c", text: "4 hours" }, { id: "d", text: "5 hours" }], ["c"], 2, "medium", 20),
+        createQuestion("A man's speed with the current is 15 km/hr and the speed of the current is 2.5 km/hr. The man's speed against the current is:", [{ id: "a", text: "8.5 km/hr" }, { id: "b", text: "9 km/hr" }, { id: "c", text: "10 km/hr" }, { id: "d", text: "12.5 km/hr" }], ["c"], 2, "medium", 20),
+        createQuestion("A boat running upstream takes 8 hours 48 minutes to cover a certain distance, while it takes 4 hours to cover the same distance running downstream. What is the ratio between the speed of the boat and speed of the water current respectively?", [{ id: "a", text: "2:1" }, { id: "b", text: "3:2" }, { id: "c", text: "8:3" }, { id: "d", text: "Cannot be determined" }], ["c"], 2, "medium", 20)
+    ],
+    "Calendar": [
+        createQuestion("What was the day of the week on 17th June, 1998?", [{ id: "a", text: "Monday" }, { id: "b", text: "Tuesday" }, { id: "c", text: "Wednesday" }, { id: "d", text: "Thursday" }], ["c"], 2, "medium", 20),
+        createQuestion("The last day of a century cannot be:", [{ id: "a", text: "Monday" }, { id: "b", text: "Wednesday" }, { id: "c", text: "Tuesday" }, { id: "d", text: "Friday" }], ["c"], 2, "medium", 20),
+        createQuestion("On 8th Feb, 2005 it was Tuesday. What was the day of the week on 8th Feb, 2004?", [{ id: "a", text: "Tuesday" }, { id: "b", text: "Monday" }, { id: "c", text: "Sunday" }, { id: "d", text: "Wednesday" }], ["c"], 2, "medium", 20)
+    ],
+    "Clock": [
+        createQuestion("At what time between 7 and 8 o'clock will the hands of a clock be in the same straight line but, not together?", [{ id: "a", text: "5 (3/11) min past 7" }, { id: "b", text: "5 (5/11) min past 7" }, { id: "c", text: "5 (7/11) min past 7" }, { id: "d", text: "5 (9/11) min past 7" }], ["b"], 2, "medium", 20),
+        createQuestion("At what time between 5.30 and 6 will the hands of a clock be at right angles?", [{ id: "a", text: "43 (5/11) min past 5" }, { id: "b", text: "43 (7/11) min past 5" }, { id: "c", text: "40 min past 5" }, { id: "d", text: "45 min past 5" }], ["b"], 2, "medium", 20),
+        createQuestion("The angle between the minute hand and the hour hand of a clock when the time is 4.20, is:", [{ id: "a", text: "0°" }, { id: "b", text: "10°" }, { id: "c", text: "5°" }, { id: "d", text: "20°" }], ["b"], 2, "medium", 20)
+    ],
+    "Cubes": [
+        createQuestion("A cube of side 6 cm is cut into a number of cubes each of side 2 cm. The number of cubes will be:", [{ id: "a", text: "6" }, { id: "b", text: "9" }, { id: "c", text: "12" }, { id: "d", text: "27" }], ["d"], 2, "medium", 20),
+        createQuestion("How many cubes of 10 cm edge can be put in a cubical box of 1 m edge?", [{ id: "a", text: "10" }, { id: "b", text: "100" }, { id: "c", text: "1000" }, { id: "d", text: "10000" }], ["c"], 2, "medium", 20),
+        createQuestion("A cube of edge 5 cm is cut into cubes each of edge 1 cm. The ratio of the total surface area of one of the small cubes to that of the large cube is equal to:", [{ id: "a", text: "1 : 5" }, { id: "b", text: "1 : 25" }, { id: "c", text: "1 : 125" }, { id: "d", text: "1 : 625" }], ["b"], 2, "medium", 20)
+    ],
+    "Time & Distance": [
+        createQuestion("A person crosses a 600 m long street in 5 minutes. What is his speed in km per hour?", [{ id: "a", text: "3.6" }, { id: "b", text: "7.2" }, { id: "c", text: "8.4" }, { id: "d", text: "10" }], ["b"], 2, "medium", 20),
+        createQuestion("An aeroplane covers a certain distance at a speed of 240 kmph in 5 hours. To cover the same distance in 1(2/3) hours, it must travel at a speed of:", [{ id: "a", text: "300 kmph" }, { id: "b", text: "360 kmph" }, { id: "c", text: "600 kmph" }, { id: "d", text: "720 kmph" }], ["d"], 2, "medium", 20),
+        createQuestion("If a person walks at 14 km/hr instead of 10 km/hr, he would have walked 20 km more. The actual distance travelled by him is:", [{ id: "a", text: "50 km" }, { id: "b", text: "56 km" }, { id: "c", text: "70 km" }, { id: "d", text: "80 km" }], ["a"], 2, "medium", 20)
+    ],
+    "Number Series": [
+        createQuestion("Find the missing number in the series: 2, 6, 12, 20, 30, ?", [{ id: "a", text: "40" }, { id: "b", text: "42" }, { id: "c", text: "44" }, { id: "d", text: "46" }], ["b"], 2, "medium", 20),
+        createQuestion("What comes next in the series: 1, 4, 9, 16, 25, ?", [{ id: "a", text: "30" }, { id: "b", text: "36" }, { id: "c", text: "40" }, { id: "d", text: "45" }], ["b"], 2, "medium", 20),
+        createQuestion("Find the missing number: 5, 11, 23, 47, 95, ?", [{ id: "a", text: "191" }, { id: "b", text: "187" }, { id: "c", text: "185" }, { id: "d", text: "189" }], ["a"], 2, "medium", 20)
+    ],
+    "Mixtures": [
+        createQuestion("A container contains 40 litres of milk. From this container 4 litres of milk was taken out and replaced by water. This process was repeated further two times. How much milk is now contained by the container?", [{ id: "a", text: "26.34 litres" }, { id: "b", text: "27.36 litres" }, { id: "c", text: "28 litres" }, { id: "d", text: "29.16 litres" }], ["d"], 2, "medium", 20),
+        createQuestion("In what ratio must a grocer mix two varieties of pulses costing Rs. 15 and Rs. 20 per kg respectively so as to get a mixture worth Rs. 16.50 kg?", [{ id: "a", text: "3:7" }, { id: "b", text: "5:7" }, { id: "c", text: "7:3" }, { id: "d", text: "7:5" }], ["c"], 2, "medium", 20),
+        createQuestion("A vessel is filled with liquid, 3 parts of which are water and 5 parts syrup. How much of the mixture must be drawn off and replaced with water so that the mixture may be half water and half syrup?", [{ id: "a", text: "1/3" }, { id: "b", text: "1/4" }, { id: "c", text: "1/5" }, { id: "d", text: "1/7" }], ["c"], 2, "medium", 20)
+    ],
+    "Trains": [
+        createQuestion("A train 125 m long passes a man, running at 5 km/hr in the same direction in which the train is going, in 10 seconds. The speed of the train is:", [{ id: "a", text: "45 km/hr" }, { id: "b", text: "50 km/hr" }, { id: "c", text: "54 km/hr" }, { id: "d", text: "55 km/hr" }], ["b"], 2, "medium", 20),
+        createQuestion("Two trains are moving in opposite directions @ 60 km/hr and 90 km/hr. Their lengths are 1.10 km and 0.9 km respectively. The time taken by the slower train to cross the faster train in seconds is:", [{ id: "a", text: "36" }, { id: "b", text: "45" }, { id: "c", text: "48" }, { id: "d", text: "49" }], ["c"], 2, "medium", 20),
+        createQuestion("A train 240 m long passes a pole in 24 seconds. How long will it take to pass a platform 650 m long?", [{ id: "a", text: "65 sec" }, { id: "b", text: "89 sec" }, { id: "c", text: "100 sec" }, { id: "d", text: "150 sec" }], ["b"], 2, "medium", 20)
+    ],
+    "Numbers": [
+        createQuestion("The sum of first 45 natural numbers is:", [{ id: "a", text: "1035" }, { id: "b", text: "1280" }, { id: "c", text: "2070" }, { id: "d", text: "2140" }], ["a"], 2, "medium", 20),
+        createQuestion("Which of the following numbers is divisible by 3?", [{ id: "a", text: "541326" }, { id: "b", text: "5967013" }, { id: "c", text: "865234" }, { id: "d", text: "None of these" }], ["a"], 2, "medium", 20),
+        createQuestion("The largest 4 digit number exactly divisible by 88 is:", [{ id: "a", text: "9944" }, { id: "b", text: "9768" }, { id: "c", text: "9988" }, { id: "d", text: "8888" }], ["a"], 2, "medium", 20)
+    ],
+    "Time & Work": [
+        createQuestion("A can do a work in 15 days and B in 20 days. If they work on it together for 4 days, then the fraction of the work that is left is:", [{ id: "a", text: "1/4" }, { id: "b", text: "1/10" }, { id: "c", text: "7/15" }, { id: "d", text: "8/15" }], ["d"], 2, "medium", 20),
+        createQuestion("A can lay railway track between two given stations in 16 days and B can do the same job in 12 days. With help of C, they did the job in 4 days only. Then, C alone can do the job in:", [{ id: "a", text: "9 (1/5) days" }, { id: "b", text: "9 (2/5) days" }, { id: "c", text: "9 (3/5) days" }, { id: "d", text: "10 days" }], ["c"], 2, "medium", 20),
+        createQuestion("A, B and C can do a piece of work in 20, 30 and 60 days respectively. In how many days can A do the work if he is assisted by B and C on every third day?", [{ id: "a", text: "12 days" }, { id: "b", text: "15 days" }, { id: "c", text: "16 days" }, { id: "d", text: "18 days" }], ["b"], 2, "medium", 20)
+    ],
+    "Partnership": [
+        createQuestion("A and B invest in a business in the ratio 3 : 2. If 5% of the total profit goes to charity and A's share is Rs. 855, the total profit is:", [{ id: "a", text: "Rs. 1425" }, { id: "b", text: "Rs. 1500" }, { id: "c", text: "Rs. 1537.50" }, { id: "d", text: "Rs. 1576" }], ["b"], 2, "medium", 20),
+        createQuestion("A, B, C subscribe Rs. 50,000 for a business. A subscribes Rs. 4000 more than B and B Rs. 5000 more than C. Out of a total profit of Rs. 35,000, A receives:", [{ id: "a", text: "Rs. 8400" }, { id: "b", text: "Rs. 11,900" }, { id: "c", text: "Rs. 13,600" }, { id: "d", text: "Rs. 14,700" }], ["d"], 2, "medium", 20),
+        createQuestion("Three partners shared the profit in a business in the ratio 5 : 7 : 8. They had partnered for 14 months, 8 months and 7 months respectively. What was the ratio of their investments?", [{ id: "a", text: "5:7:8" }, { id: "b", text: "20:49:64" }, { id: "c", text: "38:28:21" }, { id: "d", text: "None of these" }], ["b"], 2, "medium", 20)
+    ],
+    "Probability": [
+        createQuestion("A bag contains 2 red, 3 green and 2 blue balls. Two balls are drawn at random. What is the probability that none of the balls drawn is blue?", [{ id: "a", text: "10/21" }, { id: "b", text: "11/21" }, { id: "c", text: "2/7" }, { id: "d", text: "5/7" }], ["a"], 2, "medium", 20),
+        createQuestion("In a class, there are 15 boys and 10 girls. Three students are selected at random. The probability that 1 girl and 2 boys are selected, is:", [{ id: "a", text: "1/50" }, { id: "b", text: "3/25" }, { id: "c", text: "21/46" }, { id: "d", text: "25/117" }], ["c"], 2, "medium", 20),
+        createQuestion("Two dice are thrown simultaneously. What is the probability of getting two numbers whose product is even?", [{ id: "a", text: "1/2" }, { id: "b", text: "3/4" }, { id: "c", text: "3/8" }, { id: "d", text: "5/16" }], ["b"], 2, "medium", 20)
+    ],
+    "Pipes & Cisterns": [
+        createQuestion("Three pipes A, B and C can fill a tank from empty to full in 30 minutes, 20 minutes, and 10 minutes respectively. When the tank is empty, all the three pipes are opened. A, B and C discharge chemical solutions P, Q and R respectively. What is the proportion of the solution R in the liquid in the tank after 3 minutes?", [{ id: "a", text: "5/11" }, { id: "b", text: "6/11" }, { id: "c", text: "7/11" }, { id: "d", text: "8/11" }], ["b"], 2, "medium", 20),
+        createQuestion("Pipes A and B can fill a tank in 5 and 6 hours respectively. Pipe C can empty it in 12 hours. If all the three pipes are opened together, then the tank will be filled in:", [{ id: "a", text: "1 (13/17) hours" }, { id: "b", text: "2 (8/11) hours" }, { id: "c", text: "3 (9/17) hours" }, { id: "d", text: "4 (1/2) hours" }], ["c"], 2, "medium", 20),
+        createQuestion("A pump can fill a tank with water in 2 hours. Because of a leak, it took 2 (1/3) hours to fill the tank. The leak can drain all the water of the tank in:", [{ id: "a", text: "4 (1/3) hours" }, { id: "b", text: "7 hours" }, { id: "c", text: "8 hours" }, { id: "d", text: "14 hours" }], ["d"], 2, "medium", 20)
+    ],
+    "Profit & Loss": [
+        createQuestion("A shopkeeper expects a gain of 22.5% on his cost price. If in a week, his sale was of Rs. 392, what was his profit?", [{ id: "a", text: "Rs. 18.20" }, { id: "b", text: "Rs. 70" }, { id: "c", text: "Rs. 72" }, { id: "d", text: "Rs. 88.25" }], ["c"], 2, "medium", 20),
+        createQuestion("A man buys a cycle for Rs. 1400 and sells it at a loss of 15%. What is the selling price of the cycle?", [{ id: "a", text: "Rs. 1090" }, { id: "b", text: "Rs. 1160" }, { id: "c", text: "Rs. 1190" }, { id: "d", text: "Rs. 1202" }], ["c"], 2, "medium", 20),
+        createQuestion("When a plot is sold for Rs. 18,700, the owner loses 15%. At what price must that plot be sold in order to gain 15%?", [{ id: "a", text: "Rs. 21,000" }, { id: "b", text: "Rs. 22,500" }, { id: "c", text: "Rs. 25,300" }, { id: "d", text: "Rs. 25,800" }], ["c"], 2, "medium", 20)
+    ],
+    "Permutations": [
+        createQuestion("In how many different ways can the letters of the word 'LEADING' be arranged in such a way that the vowels always come together?", [{ id: "a", text: "360" }, { id: "b", text: "480" }, { id: "c", text: "720" }, { id: "d", text: "5040" }], ["c"], 2, "medium", 20),
+        createQuestion("In how many different ways can the letters of the word 'CORPORATION' be arranged so that the vowels always come together?", [{ id: "a", text: "810" }, { id: "b", text: "1440" }, { id: "c", text: "2880" }, { id: "d", text: "50400" }], ["d"], 2, "medium", 20),
+        createQuestion("How many 3-digit numbers can be formed from the digits 2, 3, 5, 6, 7 and 9, which are divisible by 5 and none of the digits is repeated?", [{ id: "a", text: "5" }, { id: "b", text: "10" }, { id: "c", text: "15" }, { id: "d", text: "20" }], ["d"], 2, "medium", 20)
     ]
 };
 
@@ -91,19 +171,34 @@ async function seedL2L3Questions() {
 
     console.log(`✅ Found ${gk3Topics.length} Topics.`);
 
+    // Topics to skip for Level 2 (already have questions)
+    const skipLevel2Topics = ["Ages", "Average", "Percentage", "Area & Volume"];
+
     // 2. Seed Level 2 & 3
     for (const topic of gk3Topics) {
         const topicName = topic.name;
         console.log(`\nProcessing ${topicName}...`);
 
-        // Level 2
-        let l2Qs = LEVEL_2_DATA[topicName] || generateGenericQuestions(topicName, 2);
-        console.log(`  📝 Creating 3 Level 2 questions...`);
-        await seedQuestions(l2Qs, topic);
+        // Level 2 - Skip if already has questions
+        if (!skipLevel2Topics.includes(topicName)) {
+            let l2Qs = LEVEL_2_DATA[topicName] || generateGenericQuestions(topicName, 2);
+            if (LEVEL_2_DATA[topicName]) {
+                console.log(`  📝 Creating ${l2Qs.length} Level 2 questions...`);
+            } else {
+                console.log(`  ⚠️  Using generic questions for Level 2 (${topicName} not in LEVEL_2_DATA)`);
+            }
+            await seedQuestions(l2Qs, topic);
+        } else {
+            console.log(`  ⏭️  Skipping Level 2 for ${topicName} (already has questions)`);
+        }
 
         // Level 3
         let l3Qs = LEVEL_3_DATA[topicName] || generateGenericQuestions(topicName, 3);
-        console.log(`  📝 Creating 3 Level 3 questions...`);
+        if (LEVEL_3_DATA[topicName]) {
+            console.log(`  📝 Creating ${l3Qs.length} Level 3 questions...`);
+        } else {
+            console.log(`  ⚠️  Using generic questions for Level 3 (${topicName} not in LEVEL_3_DATA)`);
+        }
         await seedQuestions(l3Qs, topic);
     }
 

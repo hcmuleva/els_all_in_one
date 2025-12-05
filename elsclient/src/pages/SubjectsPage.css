@@ -56,7 +56,6 @@
     scrollbar-width: none;
     /* Firefox */
     -ms-overflow-style: none;
-    /* IE 10+ */
 }
 
 .carousel-container::-webkit-scrollbar {
@@ -73,9 +72,16 @@
     /* Ensure track expands */
 }
 
-.carousel-item {
+.carousel-item-wrapper {
     flex-shrink: 0;
-    /* Prevent shrinking */
+    width: 320px;
+    /* Fixed width for detailed cards */
+    height: auto;
+}
+
+.carousel-item {
+    height: 100%;
+    /* Ensure card fills wrapper */
 }
 
 /* Preview Area */
@@ -127,6 +133,11 @@
     .header-with-back {
         flex-direction: column;
         gap: var(--space-2);
+    }
+
+    .carousel-item-wrapper {
+        width: 280px;
+        /* Slightly smaller on mobile */
     }
 }
 

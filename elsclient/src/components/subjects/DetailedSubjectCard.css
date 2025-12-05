@@ -1,0 +1,192 @@
+.detailed-subject-card {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--color-border);
+}
+
+.detailed-subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-300);
+}
+
+.detailed-subject-card.selected {
+    border: 2px solid var(--color-primary-500);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Media Section */
+.card-media {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio */
+    background-color: var(--color-gray-100);
+    overflow: hidden;
+}
+
+.media-placeholder,
+.card-video-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-200);
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    color: var(--color-gray-400);
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast);
+    z-index: 2;
+}
+
+.play-button:hover {
+    background-color: var(--color-primary-600);
+}
+
+.play-icon {
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 4px;
+    /* Optical adjustment */
+}
+
+/* Content Section */
+.card-content {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+}
+
+.badge {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.category-badge {
+    background-color: var(--color-gray-100);
+    color: var(--color-text-secondary);
+}
+
+.enrolled-badge {
+    background-color: var(--color-success-500);
+    color: white;
+    opacity: 0.9;
+}
+
+.card-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-1);
+    color: var(--color-text-primary);
+    line-height: 1.3;
+}
+
+.card-author {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+}
+
+.card-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-4);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.card-meta {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Progress Section */
+.progress-section {
+    margin-top: auto;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+}
+
+.progress-percentage {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary-600);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background-color: var(--color-gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-primary-500);
+    border-radius: var(--radius-full);
+    transition: width 1s ease-out;
+}

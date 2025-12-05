@@ -13,6 +13,7 @@ const GK3Page = () => {
     const [topicQuizzes, setTopicQuizzes] = useState({});
     const [quizLoading, setQuizLoading] = useState(false);
     const [quizError, setQuizError] = useState(null);
+    const [selectedLevel, setSelectedLevel] = useState(1); // Level 1, 2, or 3
     const SUBJECT_ID = "gvzucbgegjcfiz5ojzugwj9l";
 
     useEffect(() => {
@@ -48,21 +49,25 @@ const GK3Page = () => {
         setSelectedTopicId(topic.documentId);
         setQuizError(null);
 
-        // Use cached quiz if available
-        if (topicQuizzes[topic.documentId]) {
+        // Create cache key with level
+        const cacheKey = `${topic.documentId}-level-${selectedLevel}`;
+
+        // Use cached quiz if available for this level
+        if (topicQuizzes[cacheKey]) {
             return;
         }
 
         setQuizLoading(true);
         try {
-            const quizData = await fetchQuizForTopic(topic.documentId);
-            if (!quizData) {
-                setQuizError('Quiz coming soon for this topic.');
+            // Fetch quiz with level filter
+            const quizData = await fetchQuizForTopic(topic.documentId, selectedLevel);
+            if (!quizData || !quizData.questions || quizData.questions.length === 0) {
+                setQuizError(`No questions found for ${topic.name} at Level ${selectedLevel}.`);
                 return;
             }
             setTopicQuizzes(prev => ({
                 ...prev,
-                [topic.documentId]: quizData
+                [cacheKey]: quizData
             }));
         } catch (error) {
             console.error('Failed to load quiz:', error);
@@ -78,7 +83,8 @@ const GK3Page = () => {
     };
 
     const selectedTopic = topics.find(topic => topic.documentId === selectedTopicId);
-    const selectedQuiz = selectedTopicId ? topicQuizzes[selectedTopicId] : null;
+    const cacheKey = selectedTopicId ? `${selectedTopicId}-level-${selectedLevel}` : null;
+    const selectedQuiz = cacheKey ? topicQuizzes[cacheKey] : null;
 
     if (loading) {
         return (
@@ -108,6 +114,26 @@ const GK3Page = () => {
     return (
         <div className="gk3-page container">
             <h1 className="gk3-title">General Knowledge (GK3)</h1>
+            
+            {/* Level Selection */}
+            <div className="gk3-level-selector">
+                <label htmlFor="level-select">Select Level: </label>
+                <select 
+                    id="level-select" 
+                    value={selectedLevel} 
+                    onChange={e => {
+                        setSelectedLevel(parseInt(e.target.value));
+                        // Clear cached quizzes when level changes
+                        setTopicQuizzes({});
+                        setSelectedTopicId(null);
+                    }}
+                >
+                    <option value={1}>Level 1</option>
+                    <option value={2}>Level 2</option>
+                    <option value={3}>Level 3</option>
+                </select>
+            </div>
+
             <div className="gk3-grid">
                 {topics.map((topic) => (
                     <button

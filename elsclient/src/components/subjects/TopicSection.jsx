@@ -6,6 +6,7 @@ import './TopicSection.css';
 
 const TopicSection = ({ topic, subjectName, onVideoClick }) => {
     const [viewMode, setViewMode] = useState('videos'); // 'videos' or 'quiz'
+    const [selectedLevel, setSelectedLevel] = useState(1); // Level 1,2,3
     const [quiz, setQuiz] = useState(null);
     const [loadingQuiz, setLoadingQuiz] = useState(false);
 
@@ -111,12 +112,23 @@ const TopicSection = ({ topic, subjectName, onVideoClick }) => {
                             <p>Loading quiz...</p>
                         </div>
                     ) : quiz ? (
-                        <QuizView
-                            quiz={quiz}
-                            topic={topic}
-                            subjectName={subjectName}
-                            onClose={() => setViewMode('videos')}
-                        />
+                        <div>
+                            <div style={{ marginBottom: '1rem', padding: '1rem', background: '#f7fafc', borderRadius: '8px' }}>
+                                <label htmlFor="level-select">Select Level: </label>
+                                <select id="level-select" value={selectedLevel} onChange={e => setSelectedLevel(parseInt(e.target.value))}>
+                                    <option value={1}>Level 1</option>
+                                    <option value={2}>Level 2</option>
+                                    <option value={3}>Level 3</option>
+                                </select>
+                            </div>
+                            <QuizView
+                                quiz={quiz}
+                                topic={topic}
+                                subjectName={subjectName}
+                                onClose={() => setViewMode('videos')}
+                                selectedLevel={selectedLevel}
+                            />
+                        </div>
                     ) : (
                         <div className="no-quiz">
                             <p>📝 Quiz coming soon for this topic!</p>

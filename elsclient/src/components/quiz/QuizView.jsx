@@ -4,7 +4,7 @@ import QuizResultAnalysis from './QuizResultAnalysis';
 import { quizResultAPI } from '../../services/quizResult';
 import './QuizView.css';
 
-const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previousResult = null }) => {
+const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previousResult = null, selectedLevel = null }) => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState({});
@@ -28,6 +28,11 @@ const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previ
         if (!quiz || !quiz.questions) return;
 
         let filteredQuestions = [...quiz.questions];
+
+        // Filter by selected level if provided
+        if (selectedLevel !== null) {
+            filteredQuestions = filteredQuestions.filter(q => q.level === selectedLevel);
+        }
 
         if (filterType !== 'all' && previousResult && previousResult.answers) {
             filteredQuestions = quiz.questions.filter(q => {
@@ -87,6 +92,18 @@ const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previ
             <div className="quiz-empty">
                 <div className="empty-icon">🎯</div>
                 <p>No quiz available for this topic yet!</p>
+            </div>
+        );
+    }
+
+    // If after filtering by level there are no questions
+    // If after filtering by level there are no questions
+    if (selectedLevel !== null && questions.length === 0) {
+        return (
+            <div className="quiz-empty">
+                <div className="empty-icon">📚</div>
+                <p>No questions found for the selected level.</p>
+                <button className="btn-close" onClick={onClose}>← Back to Topics</button>
             </div>
         );
     }
