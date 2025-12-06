@@ -4,6 +4,7 @@ import { questionAPI } from './question';
 export const quizAPI = {
     // Get quiz for a specific topic
     getByTopic: async (topicId) => {
+        console.log(`[getByTopic] Fetching quiz for topic: ${topicId}`);
         const response = await api.get(`/quizzes`, {
             params: {
                 'filters[topic][documentId][$eq]': topicId,
@@ -34,15 +35,13 @@ export const quizAPI = {
 
 // Convenience function - tries to find existing quiz, otherwise creates virtual quiz from questions
 export const fetchQuizForTopic = async (topicId, level = null) => {
-    console.log(`[fetchQuizForTopic] Fetching quiz for topic: ${topicId}, level: ${level}`);
-    
+
     // First, try to find an existing quiz entity
     try {
         const quizData = await quizAPI.getByTopic(topicId);
-        console.log(`[fetchQuizForTopic] Quiz entity response:`, quizData);
-        
+
         if (quizData.data && quizData.data.length > 0) {
-            console.log(`[fetchQuizForTopic] Found existing quiz entity`);
+
             return quizData.data[0];
         }
     } catch (error) {
@@ -54,7 +53,7 @@ export const fetchQuizForTopic = async (topicId, level = null) => {
     try {
         const questionsData = await questionAPI.getByTopic(topicId, level);
         console.log(`[fetchQuizForTopic] Questions response:`, questionsData);
-        
+
         if (!questionsData.data || questionsData.data.length === 0) {
             console.log(`[fetchQuizForTopic] No questions found for topic ${topicId} at level ${level}`);
             return null;

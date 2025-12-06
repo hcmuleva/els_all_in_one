@@ -97,6 +97,10 @@
     .option-button {
         padding: var(--space-3);
     }
+
+    .options-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 /* Animation */

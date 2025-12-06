@@ -26,13 +26,14 @@ const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previ
     // Initialize questions based on filter
     useEffect(() => {
         if (!quiz || !quiz.questions) return;
+        console.log('=== QUIZ VIEW INITIALIZATION ===');
 
         let filteredQuestions = [...quiz.questions];
-
+        console.log('Initial questions count:', filteredQuestions.length, " filteredQuestions", filteredQuestions);
         // Filter by selected level if provided
-        if (selectedLevel !== null) {
-            filteredQuestions = filteredQuestions.filter(q => q.level === selectedLevel);
-        }
+        // if (selectedLevel !== null) {
+        //     filteredQuestions = filteredQuestions.filter(q => q.level === selectedLevel);
+        // }
 
         if (filterType !== 'all' && previousResult && previousResult.answers) {
             filteredQuestions = quiz.questions.filter(q => {
@@ -75,7 +76,7 @@ const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previ
         setQuestionStatus(initialStatus);
 
     }, [quiz, filterType, previousResult]);
-
+    console.log("Filtered questions set in state:", questions);
     // Timer effect - runs every second when quiz is active
     useEffect(() => {
         if (!showResults && quizStartTime && questions.length > 0) {
@@ -196,8 +197,12 @@ const QuizView = ({ quiz, topic, subjectName, onClose, filterType = 'all', previ
                 return;
             }
 
-            // Check if correctAnswers array exists and includes the user's answer
-            if (q.correctAnswers && q.correctAnswers.includes(userAnswer)) {
+            // Convert user answer index to letter (0 -> 'a', 1 -> 'b', etc.)
+            const userAnswerLetter = String.fromCharCode(97 + userAnswer);
+            console.log('  User answer letter:', userAnswerLetter);
+
+            // Check if correctAnswers array exists and includes the user's answer letter
+            if (q.correctAnswers && q.correctAnswers.includes(userAnswerLetter)) {
                 correct++;
                 console.log('  Result: CORRECT (via correctAnswers array)');
             }

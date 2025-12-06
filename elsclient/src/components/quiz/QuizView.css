@@ -428,8 +428,14 @@
     }
 
     .quiz-navigation {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
         padding: 1rem;
+    }
+
+    .btn-submit {
+        grid-column: 1 / -1;
     }
 
     .question-palette {
